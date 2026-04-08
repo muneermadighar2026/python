@@ -1,15 +1,15 @@
 # my_helper_functions.py
-print(f"This line will always print when my_helper_functions.py is loaded. __name__ is: {__name__}")
+print(f"This line will always print when dunder.py is loaded. __name__ is: {__name__}")
 
 def greet(name):
- return f"Hello, {name} from my_helper_functions!"
+ return f"Hello, {name} from dunder!"
 
 def add(a, b):
  return a + b
 
-# This block only runs if my_helper_functions.py is executed directly
+# This block only runs if (dunder/my_helper_functions.py) is executed directly
 if __name__ == "__main__":
- print("my_helper_functions.py is being run directly!")
+ print("dunder.py is being run directly!")
  user_name = input("Enter your name: ")
  print(greet(user_name))
  result = add(10, 5)
