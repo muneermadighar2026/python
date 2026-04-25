@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Login</title>
+    <title>User Registration</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         /* Custom styles to handle input autofill background */
@@ -18,21 +18,48 @@
 <body class="bg-gray-50 flex items-center justify-center min-h-screen p-4 font-sans text-gray-800">
 
     <!-- Form Container -->
-    <div class="bg-white max-w-md w-full rounded-2xl shadow-xl overflow-hidden transition-all duration-300">
+    <div id="formCard" class="bg-white max-w-md w-full rounded-2xl shadow-xl overflow-hidden transition-all duration-300">
         <div class="px-8 pt-8 pb-6 bg-blue-600 text-white text-center">
-            <h2 class="text-3xl font-bold mb-2">Welcome To Python APP</h2>
-            <p class="text-blue-100 text-sm">Please sign in to your account.</p>
+            <h2 class="text-3xl font-bold mb-2">Create Account</h2>
+            <p class="text-blue-100 text-sm">Join us today! Please fill in your details.</p>
         </div>
 
         <div class="p-8">
-            <form action="/login" method="POST" class="space-y-5">
-                <!-- error -->
-                {% if error %}
-                <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
-                    <strong class="font-bold">Error!</strong>
-                    <span class="block sm:inline">{{ error }}</span>
+            
+            {% if success %}
+            <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative" role="alert">
+                <strong class="font-bold">Success!</strong>
+                <span class="block sm:inline">{{ success }}</span>
+            </div>
+            {% endif %}
+
+
+            <form action="/submit" method="POST" class="space-y-5">
+                <!-- Name Fields Row -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                    <!-- First Name -->
+                    <div class="space-y-1">
+                        <label for="firstName" class="text-sm font-medium text-gray-700 block">First Name</label>
+                        <div class="relative">
+                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                <svg class="h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                            </div>
+                            <input type="text" id="firstName" name="firstname" required class="block w-full pl-10 pr-3 py-2.5 border border-gray-300 rounded-xl text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors" placeholder="John">
+                        </div>
+                    </div>
+
+                    <!-- Last Name -->
+                    <div class="space-y-1">
+                        <label for="lastName" class="text-sm font-medium text-gray-700 block">Last Name</label>
+                        <div class="relative">
+                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                <svg class="h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                            </div>
+                            <input type="text" id="lastName" name="lastname" required class="block w-full pl-10 pr-3 py-2.5 border border-gray-300 rounded-xl text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors" placeholder="Doe">
+                        </div>
+                    </div>
                 </div>
-                {% endif %}
+
                 <!-- Email Field -->
                 <div class="space-y-1">
                     <label for="email" class="text-sm font-medium text-gray-700 block">Email Address</label>
@@ -46,15 +73,12 @@
 
                 <!-- Password Field -->
                 <div class="space-y-1">
-                    <div class="flex justify-between items-center">
-                        <label for="password" class="text-sm font-medium text-gray-700 block">Password</label>
-                        <a href="#" class="text-xs text-blue-600 hover:text-blue-800 font-medium">Forgot password?</a>
-                    </div>
+                    <label for="password" class="text-sm font-medium text-gray-700 block">Password</label>
                     <div class="relative">
                         <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                             <svg class="h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
                         </div>
-                        <input type="password" id="password" name="password" required class="block w-full pl-10 pr-10 py-2.5 border border-gray-300 rounded-xl text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors" placeholder="••••••••">
+                        <input type="password" id="password" name="password" required minlength="6" class="block w-full pl-10 pr-10 py-2.5 border border-gray-300 rounded-xl text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors" placeholder="••••••••">
                         <button type="button" id="togglePassword" class="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-gray-600 focus:outline-none">
                             <!-- Eye Icon (Default) -->
                             <svg id="eyeIcon" class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"></path><circle cx="12" cy="12" r="3"></circle></svg>
@@ -66,14 +90,8 @@
 
                 <!-- Submit Button -->
                 <button type="submit" class="w-full bg-blue-600 text-white rounded-xl py-3 px-4 font-medium hover:bg-blue-700 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 mt-6">
-                    Sign In
+                    Create Account
                 </button>
-                
-                <!-- Sign Up Link -->
-                <p class="text-center text-sm text-gray-600 mt-4">
-                    Don't have an account? 
-                    <a href="/register" class="text-blue-600 font-medium hover:text-blue-800 transition-colors">Sign up</a>
-                </p>
             </form>
         </div>
     </div>
